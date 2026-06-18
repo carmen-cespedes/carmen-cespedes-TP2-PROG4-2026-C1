@@ -5,3 +5,4 @@ dist/
 .angular/
 uploads/
 server/node_modules/
+server/dist/
