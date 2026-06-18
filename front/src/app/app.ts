@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core'; // ← agregá signal
+import { Component, inject, OnInit, signal } from '@angular/core'; 
 import { RouterOutlet } from '@angular/router';
 import { Navbar } from './shared/navbar/navbar';
 import { Auth } from './auth/auth';
