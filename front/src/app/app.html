@@ -1,0 +1,16 @@
+
+<app-navbar />
+<router-outlet />
+
+@if (mostrarModalSesion()) {
+  <div class="modal-overlay">
+    <div class="modal-sesion">
+      <h4>Tu sesión está por vencer</h4>
+      <p>Quedan 5 minutos de sesión. ¿Querés extenderla?</p>
+      <div class="modal-botones">
+        <button class="btn-uiverse" (click)="extenderSesion()">Sí</button>
+        <button class="btn-uiverse" (click)="cerrarSinExtender()">No, gracias</button>
+      </div>
+    </div>
+  </div>
+}

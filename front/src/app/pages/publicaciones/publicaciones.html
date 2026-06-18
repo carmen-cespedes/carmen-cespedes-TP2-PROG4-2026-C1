@@ -1,0 +1,88 @@
+<div class="contenedor">
+  <div class="header">
+    <h1 class="titulo">Publicaciones</h1>
+    <button class="btn-uiverse" (click)="abrirModal()">Nueva publicación</button>
+  </div>
+
+  <div class="ordenamiento">
+    <button class="btn-orden" [class.activo]="orden() === 'fecha'" (click)="cambiarOrden('fecha')">Por fecha</button>
+    <button class="btn-orden" [class.activo]="orden() === 'meGusta'" (click)="cambiarOrden('meGusta')">Por me gusta</button>
+  </div>
+
+  @if (publicacionesResource.isLoading()) {
+    <div class="cargando">Cargando publicaciones...</div>
+  }
+
+  @if (error()) {
+    <div class="alert-danger">{{ error() }}</div>
+  }
+
+  @if (publicacionesResource.value()?.length === 0) {
+    <div class="vacio">No hay publicaciones todavía. ¡Sé el primero!</div>
+  }
+
+  @for (pub of publicacionesResource.value() ?? []; track pub._id) {
+      <div class="card-publicacion" appResaltar="">
+        <div class="pub-header">
+          <div class="usuario-info">
+            @if (pub.usuario?.fotoPerfil) {
+              <img [src]="pub.usuario.fotoPerfil" class="foto-usuario" alt="foto">
+            } @else {
+              <div class="foto-placeholder">{{ pub.usuario?.nombre?.charAt(0) }}</div>
+            }
+            <span class="nombre-usuario">{{ pub.usuario?.nombre }} {{ pub.usuario?.apellido }}</span>
+          </div>
+          @if (pub.usuario?._id === authService.usuarioActual()?._id || authService.usuarioActual()?.perfil === 'administrador') {
+            <button class="btn-eliminar" (click)="eliminar(pub._id)" appTooltip="Eliminar publicación">🗑</button>
+          }
+        </div>
+
+        <h3 class="pub-titulo" style="cursor:pointer" [routerLink]="['/publicacion', pub._id]">{{ pub.titulo }}</h3>
+        <p class="pub-descripcion">{{ pub.descripcion }}</p>
+
+        @if (pub.imagen) {
+          <img [src]="pub.imagen" class="pub-imagen" alt="imagen publicación">
+        }
+
+        <div class="pub-footer">
+          <button class="btn-megusta" (click)="toggleMeGusta(pub)">
+            {{ pub.meGusta?.includes(authService.usuarioActual()?._id) ? '❤️' : '🤍' }}
+            {{ pub.meGusta?.length }}
+          </button>
+          <span class="fecha">{{ pub.createdAt | fechaRelativa }}</span>
+        </div>
+      </div>
+    }
+
+  <div class="paginacion">
+    <button class="btn-orden" (click)="paginaAnterior()" [disabled]="pagina() === 0">← Anterior</button>
+    <span>Página {{ pagina() + 1 }}</span>
+    <button class="btn-orden" (click)="paginaSiguiente()" [disabled]="(publicacionesResource.value()?.length ?? 0) < limit">Siguiente →</button>
+  </div>
+</div>
+
+<!-- Modal nueva publicación -->
+<ng-template #modalNuevaPublicacion let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Nueva publicación</h4>
+    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <div class="campo">
+      <input class="form-control" [(ngModel)]="nuevaPublicacion.titulo" placeholder="Título">
+    </div>
+    <div class="campo">
+      <textarea class="form-control" [(ngModel)]="nuevaPublicacion.descripcion" placeholder="¿Qué estás pensando?" rows="4"></textarea>
+    </div>
+    <div class="campo">
+      <label class="label-foto">Imagen (opcional)</label>
+      <input type="file" class="form-control" accept="image/*" (change)="onImagenSeleccionada($event)">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn-uiverse" (click)="modal.dismiss()">Cancelar</button>
+    <button class="btn-uiverse" (click)="crearPublicacion(modal)" [disabled]="cargandoCrear()">
+      {{ cargandoCrear() ? 'Publicando...' : 'Publicar' }}
+    </button>
+  </div>
+</ng-template>

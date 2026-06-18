@@ -1,0 +1,82 @@
+
+<div class="contenedor">
+
+  @if (publicacionResource.isLoading()) {
+    <div class="cargando">Cargando publicación...</div>
+  }
+
+  @if (publicacionResource.value(); as pub) {
+    <div class="card-publicacion">
+      <div class="pub-header">
+        <div class="usuario-info">
+          @if (pub.usuario?.fotoPerfil) {
+            <img [src]="pub.usuario.fotoPerfil" class="foto-usuario" alt="foto">
+          } @else {
+            <div class="foto-placeholder">{{ pub.usuario?.nombre?.charAt(0) }}</div>
+          }
+          <span class="nombre-usuario">{{ pub.usuario?.nombre }} {{ pub.usuario?.apellido }}</span>
+        </div>
+      </div>
+
+      <h2 class="pub-titulo">{{ pub.titulo }}</h2>
+      <p class="pub-descripcion">{{ pub.descripcion }}</p>
+
+      @if (pub.imagen) {
+        <img [src]="pub.imagen" class="pub-imagen" alt="imagen">
+      }
+
+      <div class="pub-footer">
+        <span>❤️ {{ pub.meGusta?.length }}</span>
+        <span class="fecha">{{ pub.createdAt | date:'dd/MM/yyyy' }}</span>
+      </div>
+    </div>
+
+    <!-- Comentarios -->
+    <div class="comentarios-section">
+      <h3 class="subtitulo">Comentarios</h3>
+
+      @if (error()) {
+        <div class="alert-danger">{{ error() }}</div>
+      }
+
+      <!-- Nuevo comentario -->
+      <div class="nuevo-comentario">
+        <textarea class="form-control" [(ngModel)]="nuevoComentario"
+          placeholder="Escribí un comentario..." rows="3">
+        </textarea>
+        <button class="btn-uiverse" (click)="enviarComentario()">Comentar</button>
+      </div>
+
+      <!-- Lista de comentarios -->
+      @for (comentario of comentarios(); track comentario._id) {
+        <div class="card-comentario">
+          <div class="comentario-header">
+            <span class="comentario-usuario">{{ comentario.usuario?.nombre }} {{ comentario.usuario?.apellido }}</span>
+            @if (comentario.modificado) {
+              <span class="modificado">(editado)</span>
+            }
+            @if (comentario.usuario?._id === authService.usuarioActual()?._id) {
+              <button class="btn-editar" (click)="iniciarEdicion(comentario)">✏️</button>
+            }
+          </div>
+
+          @if (comentarioEditandoId() === comentario._id) {
+            <textarea class="form-control" [(ngModel)]="mensajeEditando" rows="2"></textarea>
+            <div class="botones-edicion">
+              <button class="btn-uiverse" (click)="guardarEdicion(comentario)">Guardar</button>
+              <button class="btn-uiverse" (click)="cancelarEdicion()">Cancelar</button>
+            </div>
+          } @else {
+            <p class="comentario-mensaje">{{ comentario.mensaje }}</p>
+          }
+
+          <span class="fecha">{{ comentario.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+      }
+
+      @if (hayMas()) {
+        <button class="btn-cargar-mas" (click)="cargarMas()">Cargar más comentarios</button>
+      }
+    </div>
+  }
+</div>

@@ -1,0 +1,32 @@
+<p>estadisticas works!</p>
+<div class="contenedor">
+  <h1 class="titulo">Estadísticas</h1>
+
+  <div class="filtros">
+    <div class="campo">
+      <label>Desde</label>
+      <input type="date" class="form-control" [ngModel]="desde()" (ngModelChange)="desde.set($event)">
+    </div>
+    <div class="campo">
+      <label>Hasta</label>
+      <input type="date" class="form-control" [ngModel]="hasta()" (ngModelChange)="hasta.set($event)">
+    </div>
+    <button class="btn-uiverse" (click)="cargarEstadisticas()">Filtrar</button>
+  </div>
+
+  <div class="graficos">
+    <div class="card-grafico">
+      <h3>Publicaciones por usuario</h3>
+      <canvas #canvasPubUsuario></canvas>
+    </div>
+
+    <div class="card-grafico">
+      <h3>Total de comentarios: {{ totalComentarios() }}</h3>
+    </div>
+
+    <div class="card-grafico">
+      <h3>Comentarios por publicación</h3>
+      <canvas #canvasComentariosPub></canvas>
+    </div>
+  </div>
+</div>

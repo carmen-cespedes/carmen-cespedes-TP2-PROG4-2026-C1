@@ -1,0 +1,48 @@
+
+<div class="card-login">
+  <div class="card-body">
+    <h2 class="text">Iniciar Sesión</h2>
+
+    @if (error) {
+      <div class="alert alert-danger">{{ error }}</div>
+      <a routerLink="/auth/registro" class="btn btn-sm btn-outline-primary">
+        Registrarme
+      </a>
+    }
+
+    <form [formGroup]="formulario" (ngSubmit)="ingresar()">
+
+      <div class="campo">
+        <input type="text" class="form-control" formControlName="identifier"
+          placeholder="Email o nombre de usuario"
+          [class.is-invalid]="formulario.get('identifier')?.invalid && formulario.get('identifier')?.touched"
+          [class.is-valid]="formulario.get('identifier')?.valid && formulario.get('identifier')?.touched">
+        @if (formulario.get('identifier')?.hasError('required') && formulario.get('identifier')?.touched) {
+          <div class="invalid-feedback">El usuario o email es requerido.</div>
+        }
+      </div>
+
+      <div class="campo">
+        <input type="password" class="form-control" formControlName="contrasena"
+          placeholder="Contraseña"
+          [class.is-invalid]="formulario.get('contrasena')?.invalid && formulario.get('contrasena')?.touched"
+          [class.is-valid]="formulario.get('contrasena')?.valid && formulario.get('contrasena')?.touched">
+        @if (formulario.get('contrasena')?.hasError('required') && formulario.get('contrasena')?.touched) {
+          <div class="invalid-feedback">La contraseña es requerida.</div>
+        }
+        @if (formulario.get('contrasena')?.hasError('minlength') && formulario.get('contrasena')?.touched) {
+          <div class="invalid-feedback">Mínimo 8 caracteres.</div>
+        }
+      </div>
+
+      <button type="submit" class="btn-inicio" [disabled]="cargando">
+        {{ cargando ? 'Ingresando...' : 'Ingresar' }}
+      </button>
+
+    </form>
+
+    <hr>
+    <p class="texto-registro">¿No tenés cuenta? <a routerLink="/registro">Registrate</a></p>
+
+  </div>
+</div>

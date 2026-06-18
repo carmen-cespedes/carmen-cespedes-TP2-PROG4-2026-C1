@@ -1,0 +1,45 @@
+<div class="contenedor">
+  <div class="card-perfil">
+
+    <div class="foto-container">
+      @if (usuario()?.fotoPerfil) {
+        <img [src]="usuario()?.fotoPerfil" alt="Foto de perfil" class="foto-perfil">
+      } @else {
+        <div class="foto-placeholder">{{ usuario()?.nombre?.charAt(0) }}</div>
+      }
+    </div>
+
+    <h2 class="nombre">{{ usuario()?.nombre }} {{ usuario()?.apellido }}</h2>
+    <p class="username">@{{ usuario()?.nombreUsuario }}</p>
+    <p class="email">{{ usuario()?.email }}</p>
+    <span class="perfil-badge">{{ usuario()?.perfil }}</span>
+
+<!--     <button class="btn-cerrar" (click)="authService.cerrarSesion()">Cerrar sesión</button> -->
+  </div>
+
+  <div class="mis-publicaciones">
+    <h3 class="subtitulo">Mis últimas publicaciones</h3>
+
+    @if (publicacionesResource.isLoading()) {
+      <p class="vacio">Cargando...</p>
+    }
+
+    @if (publicacionesResource.value()?.length === 0) {
+      <p class="vacio">No tenés publicaciones todavía.</p>
+    }
+
+    @for (pub of publicacionesResource.value() ?? []; track pub._id) {
+      <div class="card-publicacion">
+        <h4 class="pub-titulo">{{ pub.titulo }}</h4>
+        <p class="pub-descripcion">{{ pub.descripcion }}</p>
+        @if (pub.imagen) {
+          <img [src]="pub.imagen" class="pub-imagen" alt="imagen">
+        }
+        <div class="pub-footer">
+          <span>❤️ {{ pub.meGusta?.length }}</span>
+          <span class="fecha">{{ pub.createdAt | date:'dd/MM/yyyy' }}</span>
+        </div>
+      </div>
+    }
+  </div>
+</div>

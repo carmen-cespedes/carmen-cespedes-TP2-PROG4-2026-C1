@@ -1,0 +1,16 @@
+<nav>
+  <a [routerLink]="['/home']" class="logo">
+      <img src="assets/logo.png" width="150" height="50" alt="Logo" class="logo-img"/>
+  </a>
+
+  @if (authService.usuarioActual()) {
+    <a [routerLink]="['/publicaciones']" routerLinkActive="active" class="link">Publicaciones</a>
+    <a [routerLink]="['/mi-perfil']" routerLinkActive="active" class="link">Mi Perfil</a>
+    @if (authService.usuarioActual()?.perfil === 'administrador') {
+      <a [routerLink]="['/dashboard']" routerLinkActive="active" class="link">Dashboard</a>
+      <a [routerLink]="['/estadisticas']" routerLinkActive="active" class="link">Estadísticas</a>
+    }
+    <span class="usuario">Hola, {{ authService.usuarioActual()?.nombre }}</span>
+    <a (click)="authService.cerrarSesion()" class="link-logout">Cerrar sesión</a>
+  }
+</nav>

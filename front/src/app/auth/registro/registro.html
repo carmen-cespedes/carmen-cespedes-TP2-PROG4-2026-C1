@@ -1,0 +1,103 @@
+
+<div class="card-registro">
+  <div class="card-body">
+    <h2 class="text">Crear cuenta</h2>
+
+    @if (error()) {
+      <div class="alert alert-danger">{{ error() }}</div>
+    }
+
+    <form [formGroup]="formulario" (ngSubmit)="registrar()">
+
+      <div class="campo">
+        <input class="form-control" formControlName="nombre" placeholder="Nombre"
+          [class.is-invalid]="formulario.get('nombre')?.invalid && formulario.get('nombre')?.touched"
+          [class.is-valid]="formulario.get('nombre')?.valid && formulario.get('nombre')?.touched">
+        @if (formulario.get('nombre')?.hasError('required') && formulario.get('nombre')?.touched) {
+          <div class="invalid-feedback">El nombre es requerido.</div>
+        }
+        @if (formulario.get('nombre')?.hasError('minlength') && formulario.get('nombre')?.touched) {
+          <div class="invalid-feedback">Mínimo 3 caracteres.</div>
+        }
+      </div>
+
+      <div class="campo">
+        <input class="form-control" formControlName="apellido" placeholder="Apellido"
+          [class.is-invalid]="formulario.get('apellido')?.invalid && formulario.get('apellido')?.touched"
+          [class.is-valid]="formulario.get('apellido')?.valid && formulario.get('apellido')?.touched">
+        @if (formulario.get('apellido')?.hasError('required') && formulario.get('apellido')?.touched) {
+          <div class="invalid-feedback">El apellido es requerido.</div>
+        }
+      </div>
+
+      <div class="campo">
+        <input type="date" class="form-control" formControlName="fechaNacimiento"
+          [class.is-invalid]="formulario.get('fechaNacimiento')?.invalid && formulario.get('fechaNacimiento')?.touched"
+          [class.is-valid]="formulario.get('fechaNacimiento')?.valid && formulario.get('fechaNacimiento')?.touched">
+        @if (formulario.get('fechaNacimiento')?.hasError('required') && formulario.get('fechaNacimiento')?.touched) {
+          <div class="invalid-feedback">La fecha de nacimiento es requerida.</div>
+        }
+      </div>
+
+      <div class="campo">
+        <input class="form-control" formControlName="descripcion" placeholder="Descripción breve"
+          [class.is-invalid]="formulario.get('descripcion')?.invalid && formulario.get('descripcion')?.touched"
+          [class.is-valid]="formulario.get('descripcion')?.valid && formulario.get('descripcion')?.touched">
+        @if (formulario.get('descripcion')?.hasError('required') && formulario.get('descripcion')?.touched) {
+          <div class="invalid-feedback">La descripción es requerida.</div>
+        }
+      </div>
+
+      <div class="campo">
+        <input type="email" class="form-control" formControlName="email" placeholder="Email"
+          [class.is-invalid]="formulario.get('email')?.invalid && formulario.get('email')?.touched"
+          [class.is-valid]="formulario.get('email')?.valid && formulario.get('email')?.touched">
+        @if (formulario.get('email')?.hasError('required') && formulario.get('email')?.touched) {
+          <div class="invalid-feedback">El email es requerido.</div>
+        }
+        @if (formulario.get('email')?.hasError('email') && formulario.get('email')?.touched) {
+          <div class="invalid-feedback">El email no es válido.</div>
+        }
+      </div>
+
+      <div class="campo">
+        <input class="form-control" formControlName="nombreUsuario" placeholder="Nombre de usuario"
+          [class.is-invalid]="formulario.get('nombreUsuario')?.invalid && formulario.get('nombreUsuario')?.touched"
+          [class.is-valid]="formulario.get('nombreUsuario')?.valid && formulario.get('nombreUsuario')?.touched">
+        @if (formulario.get('nombreUsuario')?.hasError('required') && formulario.get('nombreUsuario')?.touched) {
+          <div class="invalid-feedback">El nombre de usuario es requerido.</div>
+        }
+      </div>
+
+      <div class="campo">
+        <input type="password" class="form-control" formControlName="contrasena" placeholder="Contraseña"
+          [class.is-invalid]="formulario.get('contrasena')?.invalid && formulario.get('contrasena')?.touched"
+          [class.is-valid]="formulario.get('contrasena')?.valid && formulario.get('contrasena')?.touched">
+        @if (formulario.get('contrasena')?.hasError('required') && formulario.get('contrasena')?.touched) {
+          <div class="invalid-feedback">La contraseña es requerida.</div>
+        }
+        @if (formulario.get('contrasena')?.hasError('minlength') && formulario.get('contrasena')?.touched) {
+          <div class="invalid-feedback">Mínimo 8 caracteres.</div>
+        }
+        @if (formulario.get('contrasena')?.hasError('pattern') && formulario.get('contrasena')?.touched) {
+          <div class="invalid-feedback">Debe tener al menos una mayúscula y un número.</div>
+        }
+      </div>
+
+      <div class="campo">
+        <label class="label-foto">Foto de perfil (opcional)</label>
+        <input type="file" class="form-control" accept="image/*" (change)="onFotoSeleccionada($event)">
+      </div>
+
+      <div class="botones">
+        <button type="submit" class="btn-uiverse" [disabled]="cargando()">
+          {{ cargando() ? 'Registrando...' : 'Registrarse' }}
+        </button>
+        <button type="reset" class="btn-uiverse">Borrar campos</button>
+      </div>
+
+    </form>
+
+    <p class="texto-login">¿Ya tenés cuenta? <a routerLink="/login">Iniciá sesión</a></p>
+  </div>
+</div>

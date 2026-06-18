@@ -1,0 +1,40 @@
+import { Component, inject } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { Auth } from '../auth';
+import { ILogin } from '../auth.interfaces';
+
+@Component({
+  selector: 'app-login',
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
+  templateUrl: './login.html',
+  styleUrl: './login.css',
+})
+export class Login {
+  authService = inject(Auth);
+  cargando = false;
+  error = '';
+
+  formulario = new FormGroup({
+    identifier: new FormControl('', [Validators.required]),
+    contrasena: new FormControl('', [Validators.required, Validators.minLength(8)]),
+  });
+
+  async ingresar() {
+    if (!this.formulario.valid) {
+      this.formulario.markAllAsTouched();
+      return;
+    }
+    this.cargando = true;
+    this.error = '';
+    try {
+      await this.authService.ingresar(this.formulario.value as ILogin);
+    } catch (e: any) {
+      this.error = 'Usuario o contraseña incorrectos.';
+    } finally {
+      this.cargando = false;
+    }
+  }
+}
