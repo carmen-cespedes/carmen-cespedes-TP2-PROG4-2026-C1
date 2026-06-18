@@ -2,10 +2,14 @@ import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { v4 as uuid } from 'uuid';
 import { BadRequestException } from '@nestjs/common';
+import { mkdirSync } from 'fs';
+
+const uploadPath = '/tmp/uploads/perfiles';
+mkdirSync(uploadPath, { recursive: true });
 
 export const multerConfig = {
   storage: diskStorage({
-    destination: './uploads/perfiles',
+    destination: uploadPath,
     filename: (_req, file, cb) => {
       cb(null, `${uuid()}${extname(file.originalname)}`);
     },
@@ -19,5 +23,5 @@ export const multerConfig = {
       ? cb(null, true)
       : cb(new BadRequestException('Solo se permiten jpg, png o webp'), false);
   },
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
+  limits: { fileSize: 5 * 1024 * 1024 },
 };
