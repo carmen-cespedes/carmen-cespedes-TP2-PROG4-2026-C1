@@ -2,10 +2,14 @@ import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { v4 as uuid } from 'uuid';
 import { BadRequestException } from '@nestjs/common';
+import { mkdirSync } from 'fs';
+
+const uploadPath = '/tmp/uploads/publicaciones';
+mkdirSync(uploadPath, { recursive: true });
 
 export const multerPublicacionesConfig = {
   storage: diskStorage({
-    destination: './uploads/publicaciones',
+    destination: uploadPath,
     filename: (_req, file, cb) => {
       cb(null, `${uuid()}${extname(file.originalname)}`);
     },
