@@ -63,5 +63,6 @@ export class App implements OnInit {
 
   cerrarSinExtender() {
     this.mostrarModalSesion.set(false);
+    this.authService.cerrarSesion();
   }
 }
