@@ -1,19 +1,18 @@
-import { diskStorage } from 'multer';
-import { extname } from 'path';
-import { v4 as uuid } from 'uuid';
 import { BadRequestException } from '@nestjs/common';
-import { mkdirSync } from 'fs';
+import { extname } from 'path';
+import { cloudinary } from '../cloudinary.config';
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
-const uploadPath = '/tmp/uploads/perfiles';
-mkdirSync(uploadPath, { recursive: true });
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: 'perfiles',
+    allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
+  },
+});
 
 export const multerConfig = {
-  storage: diskStorage({
-    destination: uploadPath,
-    filename: (_req, file, cb) => {
-      cb(null, `${uuid()}${extname(file.originalname)}`);
-    },
-  }),
+  storage,
   fileFilter: (_req: any, file: Express.Multer.File, cb: any) => {
     const permitidos = /jpeg|jpg|png|webp/;
     const valido =
