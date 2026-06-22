@@ -48,4 +48,15 @@ export class UsuariosService {
     await usuario.save();
     return { mensaje: 'Usuario habilitado' };
   }
+
+  async actualizarFoto(usuarioId: string, urlFoto: string) {
+    const usuario = await this.usuarioModel.findByIdAndUpdate(
+      usuarioId,
+      { fotoPerfil: urlFoto },
+      { new: true }
+    );
+    if (!usuario) throw new NotFoundException('Usuario no encontrado');
+    const { contrasena: _, ...usuarioSinPassword } = (usuario as any).toObject();
+    return usuarioSinPassword;
+  }
 }

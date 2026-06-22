@@ -48,4 +48,17 @@ export class UsuariosService {
       })
     );
   }
+
+  async actualizarFoto(foto: File) {
+    const formData = new FormData();
+    formData.append('fotoPerfil', foto);
+    return firstValueFrom(
+      this.http.post<any>(`${environment.apiUrl}/usuarios/foto-perfil`, formData, {
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${this.authService.getToken()}`,
+        }),
+      })
+    );
+  }
 }
+

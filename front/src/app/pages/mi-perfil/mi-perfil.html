@@ -1,13 +1,15 @@
 <div class="contenedor">
   <div class="card-perfil">
 
-    <div class="foto-container">
-      @if (usuario()?.fotoPerfil) {
-        <img [src]="usuario()?.fotoPerfil" alt="Foto de perfil" class="foto-perfil">
-      } @else {
-        <div class="foto-placeholder">{{ usuario()?.nombre?.charAt(0) }}</div>
-      }
-    </div>
+      <div class="foto-container">
+        @if (usuario()?.fotoPerfil) {
+          <img [src]="usuario()?.fotoPerfil" alt="Foto de perfil" class="foto-perfil">
+        } @else {
+          <div class="foto-placeholder">{{ usuario()?.nombre?.charAt(0) }}</div>
+        }
+        <input type="file" accept="image/*" (change)="cambiarFoto($event)" style="display:none" #inputFoto>
+        <button class="btn-cerrar" (click)="inputFoto.click()">Cambiar foto</button>
+      </div>
 
     <h2 class="nombre">{{ usuario()?.nombre }} {{ usuario()?.apellido }}</h2>
     <p class="username">@{{ usuario()?.nombreUsuario }}</p>
@@ -42,4 +44,5 @@
       </div>
     }
   </div>
+
 </div>
