@@ -26,10 +26,10 @@
         <div class="pub-header">
           <div class="usuario-info">
             @if (pub.usuario?.fotoPerfil) {
-              <img [src]="pub.usuario.fotoPerfil" class="foto-usuario" alt="foto">
-            } @else {
-              <div class="foto-placeholder">{{ pub.usuario?.nombre?.charAt(0) }}</div>
-            }
+            <img [src]="pub.usuario.fotoPerfil" class="foto-usuario" alt="foto">
+          } @else {
+            <div class="foto-placeholder">{{ pub.usuario?.nombre?.charAt(0) }}</div>
+          }
             <span class="nombre-usuario">{{ pub.usuario?.nombre }} {{ pub.usuario?.apellido }}</span>
           </div>
           @if (pub.usuario?._id === authService.usuarioActual()?._id || authService.usuarioActual()?.perfil === 'administrador') {
