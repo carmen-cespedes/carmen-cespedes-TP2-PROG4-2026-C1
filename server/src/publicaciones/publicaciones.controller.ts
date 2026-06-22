@@ -30,9 +30,8 @@ export class PublicacionesController {
     @Request() req: any,
     @UploadedFile() imagen?: Express.Multer.File,
   ) {
-      const imagenUrl = imagen
-    ? `${process.env.APP_URL}/uploads/publicaciones/${imagen.filename}`
-    : undefined;
+      const imagenUrl = imagen ? (imagen as any).path : undefined;
+      
     return this.publicacionesService.crear(dto, req.usuario._id, imagenUrl);
   }
 
