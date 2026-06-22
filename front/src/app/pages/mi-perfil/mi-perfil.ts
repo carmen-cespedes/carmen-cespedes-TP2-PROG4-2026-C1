@@ -4,13 +4,11 @@ import { resource } from '@angular/core';
 import { Auth } from '../../auth/auth';
 import { PublicacionesService } from '../../publicaciones/publicaciones';
 import { UsuariosService } from '../../usuarios/usuarios';
-import { FechaRelativaPipe } from '../../pipes/fecha-relativa-pipe';
-import { PrimeraLetraMayusculaPipe } from '../../pipes/primera-letra-mayuscula-pipe';
 
 @Component({
   selector: 'app-mi-perfil',
   standalone: true,
-  imports: [CommonModule, FechaRelativaPipe, PrimeraLetraMayusculaPipe],
+  imports: [CommonModule],
   templateUrl: './mi-perfil.html',
   styleUrl: './mi-perfil.css',
 })
@@ -36,8 +34,10 @@ export class MiPerfil {
       const usuario = await this.usuariosService.actualizarFoto(foto);
       this.authService.usuarioActual.set(usuario);
       localStorage.setItem('usuario', JSON.stringify(usuario));
-    } catch (e) {
-      console.error('Error al cambiar foto');
+    } catch (e: any) {
+      console.error('Error al cambiar foto', e);
+      console.error('Status:', e.status);
+      console.error('Message:', e.message);
     }
   }
 }
