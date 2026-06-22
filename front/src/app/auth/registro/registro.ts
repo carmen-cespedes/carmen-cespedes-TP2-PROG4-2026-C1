@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Auth } from '../auth';
 import { IRegistro } from '../auth.interfaces';
+import { ContieneNumeroPipe } from '../../pipes/contiene-numero-pipe';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, ContieneNumeroPipe],
   templateUrl: './registro.html',
   styleUrl: './registro.css',
 })

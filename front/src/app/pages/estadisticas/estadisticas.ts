@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EstadisticasService } from '../../estadisticas/estadisticas';
 import { Chart, registerables } from 'chart.js';
-import { PrimeraLetraMayusculaPipe } from '../../pipes/primera-letra-mayuscula-pipe';
 
 Chart.register(...registerables);
 
@@ -22,10 +21,12 @@ export class Estadisticas implements OnInit {
 
   chartPubUsuario: Chart | null = null;
   chartComentariosPub: Chart | null = null;
+  chartComentariosTiempo: Chart | null = null;
   totalComentarios = signal(0);
 
   @ViewChild('canvasPubUsuario') canvasPubUsuario!: ElementRef;
   @ViewChild('canvasComentariosPub') canvasComentariosPub!: ElementRef;
+  @ViewChild('canvasComentariosTiempo') canvasComentariosTiempo!: ElementRef;
 
   async ngOnInit() {
     await this.cargarEstadisticas();
@@ -44,6 +45,7 @@ export class Estadisticas implements OnInit {
     this.totalComentarios.set(totalCom);
     this.renderGraficoPubUsuario(pubUsuario);
     this.renderGraficoComPub(comPub);
+    this.renderGraficoTotalComentarios(totalCom, pubUsuario);
   }
 
   renderGraficoPubUsuario(data: any[]) {
@@ -79,4 +81,23 @@ export class Estadisticas implements OnInit {
       }
     });
   }
+
+renderGraficoTotalComentarios(totalComentarios: number, pubUsuario: any[]) {
+  if (this.chartComentariosTiempo) this.chartComentariosTiempo.destroy();
+  const totalPublicaciones = pubUsuario.reduce((acc, d) => acc + d.total, 0);
+  this.chartComentariosTiempo = new Chart(this.canvasComentariosTiempo.nativeElement, {
+    type: 'doughnut',
+    data: {
+      labels: ['Comentarios', 'Publicaciones'],
+      datasets: [{
+        data: [totalComentarios, totalPublicaciones],
+        backgroundColor: [
+          'rgba(108, 174, 231, 0.7)',
+          'rgba(174, 231, 108, 0.7)',
+        ],
+      }]
+    }
+  });
+}
+
 }

@@ -5,12 +5,13 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Auth } from '../../auth/auth';
 import { PublicacionesService } from '../../publicaciones/publicaciones';
 import { ComentariosService } from '../../comentarios/comentarios';
+import { FechaRelativaPipe } from '../../pipes/fecha-relativa-pipe';
 
 
 @Component({
   selector: 'app-publicacion',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, FechaRelativaPipe],
   templateUrl: './publicacion.html',
   styleUrl: './publicacion.css',
 })

@@ -27,7 +27,8 @@
 
       <div class="pub-footer">
         <span>❤️ {{ pub.meGusta?.length }}</span>
-        <span class="fecha">{{ pub.createdAt | date:'dd/MM/yyyy' }}</span>
+        <!-- <span class="fecha">{{ pub.createdAt | date:'dd/MM/yyyy' }}</span> -->
+         <span class="fecha">{{ pub.createdAt | fechaRelativa }}</span>
       </div>
     </div>
 
@@ -70,7 +71,8 @@
             <p class="comentario-mensaje">{{ comentario.mensaje }}</p>
           }
 
-          <span class="fecha">{{ comentario.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+          <!-- <span class="fecha">{{ comentario.createdAt | date:'dd/MM/yyyy HH:mm' }}</span> -->
+           <span class="fecha">{{ comentario.createdAt | fechaRelativa }}</span>
         </div>
       }
 

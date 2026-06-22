@@ -82,6 +82,10 @@
         @if (formulario.get('contrasena')?.hasError('pattern') && formulario.get('contrasena')?.touched) {
           <div class="invalid-feedback">Debe tener al menos una mayúscula y un número.</div>
         }
+        <small [class.text-success]="(formulario.get('contrasena')?.value ?? '') | contieneNumero"
+              [class.text-danger]="!((formulario.get('contrasena')?.value ?? '') | contieneNumero)">
+          {{ ((formulario.get('contrasena')?.value ?? '') | contieneNumero) ? '✓ Contiene un número' : '✗ Debe contener un número' }}
+        </small>
       </div>
 
       <div class="campo">
