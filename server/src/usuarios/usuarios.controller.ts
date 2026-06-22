@@ -34,14 +34,14 @@ export class UsuariosController {
     return this.usuariosService.habilitar(id);
   }
 
-  @Post('foto-perfil')
-  @UseGuards(TokenGuard)
-  @UseInterceptors(FileInterceptor('fotoPerfil', multerConfig))
-  actualizarFoto(
-    @Request() req: any,
-    @UploadedFile() foto: Express.Multer.File,
-  ) {
-    const urlFoto = (foto as any).path;
-    return this.usuariosService.actualizarFoto(req.usuario._id, urlFoto);
-  }
+   @Post('foto-perfil')
+    @UseGuards(TokenGuard)
+    @UseInterceptors(FileInterceptor('fotoPerfil', multerConfig))
+    actualizarFoto(
+      @Request() req: any,
+      @UploadedFile() foto: Express.Multer.File,
+    ) {
+      const urlFoto = (foto as any).path;
+      return this.usuariosService.actualizarFoto(req.usuario._id, urlFoto);
+    }
 }
