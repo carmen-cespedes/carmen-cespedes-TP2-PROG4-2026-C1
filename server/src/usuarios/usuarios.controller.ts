@@ -40,7 +40,7 @@ export class UsuariosController {
     @Request() req: any,
     @UploadedFile() foto: Express.Multer.File,
   ) {
-    const urlFoto = (foto as any).path;
+    const urlFoto = (foto as any).secure_url;
     return this.usuariosService.actualizarFoto(req.usuario._id, urlFoto);
   }
 }
