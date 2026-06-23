@@ -8,7 +8,7 @@
           <div class="foto-placeholder">{{ usuario()?.nombre?.charAt(0) }}</div>
         }
         <input type="file" accept="image/*" (change)="cambiarFoto($event)" style="display:none" #inputFoto>
-        <button class="btn-cerrar" (click)="inputFoto.click()">Cambiar foto</button>
+        <button class="btn-cambiar-foto" (click)="inputFoto.click()">editar foto</button>
       </div>
 
     <h2 class="nombre">{{ usuario()?.nombre }} {{ usuario()?.apellido }}</h2>

@@ -1,4 +1,3 @@
-<p>estadisticas works!</p>
 <div class="contenedor">
   <h1 class="titulo">Estadísticas</h1>
 
@@ -21,18 +20,13 @@
     </div>
 
     <div class="card-grafico">
-      <h3>Total de comentarios: {{ totalComentarios() }}</h3>
+      <h3>Comentarios en el período</h3>
+      <canvas #canvasComentariosTiempo></canvas>
     </div>
 
     <div class="card-grafico">
       <h3>Comentarios por publicación</h3>
       <canvas #canvasComentariosPub></canvas>
     </div>
-
-    <div class="card-grafico">
-      <h3>Comentarios vs Publicaciones</h3>
-      <canvas #canvasComentariosTiempo></canvas>
-    </div>
-
   </div>
 </div>

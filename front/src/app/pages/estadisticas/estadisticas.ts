@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, inject, signal, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EstadisticasService } from '../../estadisticas/estadisticas';
@@ -13,7 +13,7 @@ Chart.register(...registerables);
   templateUrl: './estadisticas.html',
   styleUrl: './estadisticas.css',
 })
-export class Estadisticas implements OnInit {
+export class Estadisticas implements AfterViewInit {
   estadisticasService = inject(EstadisticasService);
 
   desde = signal('');
@@ -28,7 +28,7 @@ export class Estadisticas implements OnInit {
   @ViewChild('canvasComentariosPub') canvasComentariosPub!: ElementRef;
   @ViewChild('canvasComentariosTiempo') canvasComentariosTiempo!: ElementRef;
 
-  async ngOnInit() {
+  async ngAfterViewInit() {
     await this.cargarEstadisticas();
   }
 
@@ -82,22 +82,21 @@ export class Estadisticas implements OnInit {
     });
   }
 
-renderGraficoTotalComentarios(totalComentarios: number, pubUsuario: any[]) {
-  if (this.chartComentariosTiempo) this.chartComentariosTiempo.destroy();
-  const totalPublicaciones = pubUsuario.reduce((acc, d) => acc + d.total, 0);
-  this.chartComentariosTiempo = new Chart(this.canvasComentariosTiempo.nativeElement, {
-    type: 'doughnut',
-    data: {
-      labels: ['Comentarios', 'Publicaciones'],
-      datasets: [{
-        data: [totalComentarios, totalPublicaciones],
-        backgroundColor: [
-          'rgba(108, 174, 231, 0.7)',
-          'rgba(174, 231, 108, 0.7)',
-        ],
-      }]
-    }
-  });
-}
-
+  renderGraficoTotalComentarios(totalComentarios: number, pubUsuario: any[]) {
+    if (this.chartComentariosTiempo) this.chartComentariosTiempo.destroy();
+    const totalPublicaciones = pubUsuario.reduce((acc, d) => acc + d.total, 0);
+    this.chartComentariosTiempo = new Chart(this.canvasComentariosTiempo.nativeElement, {
+      type: 'doughnut',
+      data: {
+        labels: ['Comentarios', 'Publicaciones'],
+        datasets: [{
+          data: [totalComentarios, totalPublicaciones],
+          backgroundColor: [
+            'rgba(108, 174, 231, 0.7)',
+            'rgba(174, 231, 108, 0.7)',
+          ],
+        }]
+      }
+    });
+  }
 }

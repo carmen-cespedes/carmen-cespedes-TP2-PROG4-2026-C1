@@ -1,0 +1,105 @@
+:host {
+  display: block;
+  background: #f3f2ef;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.contenedor {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.titulo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #000000e0;
+  margin: 0 0 8px;
+}
+
+.filtros {
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  padding: 16px;
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.campo label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+}
+
+.form-control {
+  height: 36px;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  background: #fafafa;
+  font-size: 14px;
+  color: #000000e0;
+  padding: 0 10px;
+  outline: none;
+  transition: border 0.15s;
+}
+
+.form-control:focus {
+  border-color: #0a66c2;
+  background: #ffffff;
+}
+
+.btn-uiverse {
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: 1.5px solid #0a66c2;
+  background: transparent;
+  color: #0a66c2;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  height: 36px;
+}
+
+.btn-uiverse:hover {
+  background: #e8f0f9;
+}
+
+.graficos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.card-grafico {
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  padding: 16px;
+}
+
+.card-grafico h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #000000e0;
+  margin: 0 0 12px;
+}
+
+@media (max-width: 600px) {
+  .graficos {
+    grid-template-columns: 1fr;
+  }
+}
