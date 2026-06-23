@@ -32,6 +32,8 @@
 
       <div class="campo">
         <input type="date" class="form-control" formControlName="fechaNacimiento"
+          min="1900-01-01"
+          [max]="hoy"
           [class.is-invalid]="formulario.get('fechaNacimiento')?.invalid && formulario.get('fechaNacimiento')?.touched"
           [class.is-valid]="formulario.get('fechaNacimiento')?.valid && formulario.get('fechaNacimiento')?.touched">
         @if (formulario.get('fechaNacimiento')?.hasError('required') && formulario.get('fechaNacimiento')?.touched) {
