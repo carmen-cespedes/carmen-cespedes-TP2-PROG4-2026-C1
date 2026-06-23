@@ -5,7 +5,7 @@
 
     @if (error) {
       <div class="alert alert-danger">{{ error }}</div>
-      <a routerLink="/auth/registro" class="btn btn-sm btn-outline-primary">
+      <a routerLink="/registro" class="btn btn-sm btn-outline-primary">
         Registrarme
       </a>
     }
@@ -17,7 +17,7 @@
           placeholder="Email o nombre de usuario"
           [class.is-invalid]="formulario.get('identifier')?.invalid && formulario.get('identifier')?.touched"
           [class.is-valid]="formulario.get('identifier')?.valid && formulario.get('identifier')?.touched">
-        @if (formulario.get('identifier')?.hasError('required') && formulario.get('identifier')?.touched) {
+        @if (formulario.get('identifier')?.hasError('required') && formulario.get('identifier')?.dirty) {
           <div class="invalid-feedback">El usuario o email es requerido.</div>
         }
       </div>
@@ -27,10 +27,11 @@
           placeholder="Contraseña"
           [class.is-invalid]="formulario.get('contrasena')?.invalid && formulario.get('contrasena')?.touched"
           [class.is-valid]="formulario.get('contrasena')?.valid && formulario.get('contrasena')?.touched">
-        @if (formulario.get('contrasena')?.hasError('required') && formulario.get('contrasena')?.touched) {
+        
+        @if (formulario.get('contrasena')?.hasError('required') && formulario.get('contrasena')?.dirty) {
           <div class="invalid-feedback">La contraseña es requerida.</div>
         }
-        @if (formulario.get('contrasena')?.hasError('minlength') && formulario.get('contrasena')?.touched) {
+        @if (formulario.get('contrasena')?.hasError('minlength') && formulario.get('contrasena')?.dirty) {
           <div class="invalid-feedback">Mínimo 8 caracteres.</div>
         }
       </div>

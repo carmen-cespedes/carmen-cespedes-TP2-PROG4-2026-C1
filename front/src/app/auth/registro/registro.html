@@ -84,7 +84,7 @@
         }
         <small [class.text-success]="(formulario.get('contrasena')?.value ?? '') | contieneNumero"
               [class.text-danger]="!((formulario.get('contrasena')?.value ?? '') | contieneNumero)">
-          {{ ((formulario.get('contrasena')?.value ?? '') | contieneNumero) ? '✓ Contiene un número' : '✗ Debe contener un número' }}
+          {{ ((formulario.get('contrasena')?.value ?? '') | contieneNumero) ? '✓ Contiene un número' : '- Debe contener una mayúscula y un número' }}
         </small>
       </div>
 

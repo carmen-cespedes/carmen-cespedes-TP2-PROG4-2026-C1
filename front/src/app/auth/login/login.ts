@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -14,6 +14,7 @@ import { ILogin } from '../auth.interfaces';
 })
 export class Login {
   authService = inject(Auth);
+  cdr = inject(ChangeDetectorRef);
   cargando = false;
   error = '';
 
@@ -42,8 +43,10 @@ export class Login {
       } else {
         this.error = 'Ocurrió un error. Intentá de nuevo.';
       }
+      this.cdr.detectChanges();
     } finally {
       this.cargando = false;
+      this.cdr.detectChanges();
     }
   }
 }
