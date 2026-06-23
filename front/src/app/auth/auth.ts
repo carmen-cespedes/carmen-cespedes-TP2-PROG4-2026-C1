@@ -62,4 +62,12 @@ export class Auth {
   getToken(): string | null {
     return localStorage.getItem('token');
   }
+
+  getTiempoRestante(): number {
+    const token = this.getToken();
+    if (!token) return 0;
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const ahora = Math.floor(Date.now() / 1000);
+    return Math.max(0, payload.exp - ahora); // segundos restantes
+  }
 }
