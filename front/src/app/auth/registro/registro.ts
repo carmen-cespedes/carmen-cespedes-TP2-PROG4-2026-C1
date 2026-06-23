@@ -44,10 +44,22 @@ export class Registro {
       return;
     }
     this.cargando.set(true);
-    this.error.set('') ;
+    this.error.set('');
     try {
       await this.authService.registrar(this.formulario.value as IRegistro, this.fotoArchivo);
-    
+    } catch (e: any) {
+      if (e.status === 409) {
+        const mensaje = e.error?.message;
+        if (mensaje?.includes('email')) {
+          this.error.set('El email ya está registrado.');
+        } else if (mensaje?.includes('usuario')) {
+          this.error.set('El nombre de usuario ya está en uso.');
+        } else {
+          this.error.set('Ya existe un usuario con esos datos.');
+        }
+      } else {
+        this.error.set('Ocurrió un error al registrarse. Intentá de nuevo.');
+      }
     } finally {
       this.cargando.set(false);
     }
