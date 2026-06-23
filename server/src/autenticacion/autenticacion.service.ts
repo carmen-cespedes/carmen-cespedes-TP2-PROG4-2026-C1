@@ -56,7 +56,7 @@ export class AutenticacionService {
       };
       const jwt = sign(payload, process.env.CLAVE_SUPERSECRETA!, {
         algorithm: 'HS256',
-        expiresIn: '15m',
+        expiresIn: '2m',
       });
 
       // ← agregá el usuario en la respuesta igual que en ingresar()
@@ -100,7 +100,7 @@ export class AutenticacionService {
     };
     const jwt = sign(payload, process.env.CLAVE_SUPERSECRETA!, {
       algorithm: 'HS256',
-      expiresIn: '15m',
+      expiresIn: '2m',
     });
 
     // Devolver todos los datos del usuario (sin la contrasena)
@@ -123,7 +123,7 @@ export class AutenticacionService {
       const nuevoToken = sign(
         { email: payload.email, _id: payload._id, perfil: payload.perfil },
         process.env.CLAVE_SUPERSECRETA!,
-        { algorithm: 'HS256', expiresIn: '15m' }
+        { algorithm: 'HS256', expiresIn: '2m' }
       );
       return { token: nuevoToken };
     } catch {
