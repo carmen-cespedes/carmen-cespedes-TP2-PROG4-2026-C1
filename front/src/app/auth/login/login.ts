@@ -32,7 +32,16 @@ export class Login {
     try {
       await this.authService.ingresar(this.formulario.value as ILogin);
     } catch (e: any) {
-      this.error = 'Usuario o contraseña incorrectos.';
+      if (e.status === 401) {
+        const mensaje = e.error?.message;
+        if (mensaje === 'Tu cuenta está deshabilitada') {
+          this.error = 'Tu cuenta está deshabilitada. Contactá al administrador.';
+        } else {
+          this.error = 'Usuario o contraseña incorrectos.';
+        }
+      } else {
+        this.error = 'Ocurrió un error. Intentá de nuevo.';
+      }
     } finally {
       this.cargando = false;
     }
