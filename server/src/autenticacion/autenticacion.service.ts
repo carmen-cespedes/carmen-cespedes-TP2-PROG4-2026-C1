@@ -90,7 +90,7 @@ export class AutenticacionService {
     const coincide = await bcrypt.compare(dto.contrasena, usuario.contrasena);
     if (!coincide) throw new UnauthorizedException('Credenciales inválidas');
 
-    if (!usuario.activo) throw new UnauthorizedException('Tu cuenta está deshabilitada');
+    if (!usuario.activo) throw new UnauthorizedException({ message: 'Tu cuenta está deshabilitada' });
     
     // Generar JWT
     const payload = {
