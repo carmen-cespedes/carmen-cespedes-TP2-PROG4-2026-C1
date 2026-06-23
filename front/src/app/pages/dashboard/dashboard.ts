@@ -5,11 +5,12 @@ import { Auth } from '../../auth/auth';
 import { UsuariosService } from '../../usuarios/usuarios';
 import { PrimeraLetraMayusculaPipe } from '../../pipes/primera-letra-mayuscula-pipe';
 import { DeshabilitarSiDirective } from '../../directives/deshabilitar-si';
+import { TooltipDirective } from '../../directives/tooltip';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, PrimeraLetraMayusculaPipe, DeshabilitarSiDirective],
+  imports: [CommonModule, FormsModule, PrimeraLetraMayusculaPipe, DeshabilitarSiDirective, TooltipDirective],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })

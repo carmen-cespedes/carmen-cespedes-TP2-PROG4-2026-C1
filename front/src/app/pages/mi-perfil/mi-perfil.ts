@@ -4,11 +4,13 @@ import { resource } from '@angular/core';
 import { Auth } from '../../auth/auth';
 import { PublicacionesService } from '../../publicaciones/publicaciones';
 import { UsuariosService } from '../../usuarios/usuarios';
+import { FechaRelativaPipe } from '../../pipes/fecha-relativa-pipe';
+import { ResaltarDirective } from '../../directives/resaltar';
 
 @Component({
   selector: 'app-mi-perfil',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FechaRelativaPipe, ResaltarDirective],
   templateUrl: './mi-perfil.html',
   styleUrl: './mi-perfil.css',
 })

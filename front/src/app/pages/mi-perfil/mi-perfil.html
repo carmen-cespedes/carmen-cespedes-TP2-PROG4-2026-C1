@@ -31,7 +31,7 @@
     }
 
     @for (pub of publicacionesResource.value() ?? []; track pub._id) {
-      <div class="card-publicacion">
+      <div class="card-publicacion" appResaltar="#f0f4ff">
         <h4 class="pub-titulo">{{ pub.titulo }}</h4>
         <p class="pub-descripcion">{{ pub.descripcion }}</p>
         @if (pub.imagen) {
@@ -39,7 +39,7 @@
         }
         <div class="pub-footer">
           <span>❤️ {{ pub.meGusta?.length }}</span>
-          <span class="fecha">{{ pub.createdAt | date:'dd/MM/yyyy' }}</span>
+          <span class="fecha">{{ pub.createdAt | fechaRelativa }}</span>
         </div>
       </div>
     }

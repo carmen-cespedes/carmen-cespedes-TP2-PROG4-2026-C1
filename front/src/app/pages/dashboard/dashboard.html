@@ -59,9 +59,17 @@
         </div>
         <div class="acciones">
           @if (usuario.activo) {
-            <button class="btn-deshabilitar" (click)="deshabilitar(usuario._id)">Deshabilitar</button>
+            <button class="btn-deshabilitar" 
+              appTooltip="El usuario no podrá iniciar sesión"
+              (click)="deshabilitar(usuario._id)">
+              Deshabilitar
+            </button>
           } @else {
-            <button class="btn-habilitar" (click)="habilitar(usuario._id)">Habilitar</button>
+            <button class="btn-habilitar" 
+              appTooltip="El usuario podrá volver a iniciar sesión"
+              (click)="habilitar(usuario._id)">
+              Habilitar
+            </button>
           }
         </div>
       </div>

@@ -33,9 +33,12 @@ export class Login {
     try {
       await this.authService.ingresar(this.formulario.value as ILogin);
     } catch (e: any) {
+      console.log('error completo:', e);
+      console.log('e.error:', e.error);
+      console.log('e.error.message:', e.error?.message);
       if (e.status === 401) {
         const mensaje = e.error?.message;
-        if (mensaje === 'Tu cuenta está deshabilitada') {
+        if (mensaje === 'cuenta-deshabilitada' || e.error?.message === 'cuenta-deshabilitada') { 
           this.error = 'Tu cuenta está deshabilitada. Contactá al administrador.';
         } else {
           this.error = 'Usuario o contraseña incorrectos.';
@@ -43,9 +46,6 @@ export class Login {
       } else {
         this.error = 'Ocurrió un error. Intentá de nuevo.';
       }
-      this.cdr.detectChanges();
-    } finally {
-      this.cargando = false;
       this.cdr.detectChanges();
     }
   }
