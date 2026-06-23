@@ -38,6 +38,8 @@ export class Registro {
     this.fotoArchivo = event.target.files[0];
   }
 
+  hoy = new Date().toISOString().split('T')[0];
+
   async registrar() {
     if (!this.formulario.valid) {
       this.formulario.markAllAsTouched();
