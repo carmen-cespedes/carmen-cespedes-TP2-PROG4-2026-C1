@@ -24,7 +24,11 @@ export class EstadisticasController {
     if (desde || hasta) {
       filtro.createdAt = {};
       if (desde) filtro.createdAt.$gte = new Date(desde);
-      if (hasta) filtro.createdAt.$lte = new Date(hasta);
+      if (hasta) {
+        const hastaFecha = new Date(hasta);
+        hastaFecha.setHours(23, 59, 59, 999);
+        filtro.createdAt.$lte = hastaFecha;
+      }
     }
 
     return this.publicacionModel.aggregate([
