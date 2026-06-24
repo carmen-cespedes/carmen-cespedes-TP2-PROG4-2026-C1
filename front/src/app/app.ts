@@ -34,15 +34,15 @@ export class App implements OnInit {
     let minutos = 0;
     this.intervalo = setInterval(() => {
       minutos++;
-      if (minutos === 10) {
+      if (minutos === 60) {
         this.mostrarModalSesion.set(true);
       }
-      if (minutos >= 15) {
+      if (minutos >= 120) {
         clearInterval(this.intervalo);
         this.mostrarModalSesion.set(false);
         this.authService.cerrarSesion();
       }
-    }, 60000);
+    }, 1000);
   }
 
   async extenderSesion() {
