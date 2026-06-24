@@ -43,9 +43,12 @@ export class Estadisticas implements AfterViewInit {
     ]);
 
     this.totalComentarios.set(totalCom);
-    this.renderGraficoPubUsuario(pubUsuario);
-    this.renderGraficoComPub(comPub);
-    this.renderGraficoTotalComentarios(totalCom, pubUsuario);
+
+    setTimeout(() => {
+      this.renderGraficoPubUsuario(pubUsuario);
+      this.renderGraficoComPub(comPub);
+      this.renderGraficoTotalComentarios(totalCom, pubUsuario);
+    }, 0);
   }
 
   renderGraficoPubUsuario(data: any[]) {
