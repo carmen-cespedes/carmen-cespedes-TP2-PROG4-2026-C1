@@ -26,9 +26,14 @@ export class EstadisticasController {
       if (desde) filtro.createdAt.$gte = new Date(desde);
       if (hasta) {
         const hastaFecha = new Date(hasta);
-        hastaFecha.setHours(23, 59, 59, 999);
+        hastaFecha.setHours(3, 0, 0, 0);
         filtro.createdAt.$lte = hastaFecha;
       }
+      if (hasta) {
+      const hastaFecha = new Date(hasta);
+      hastaFecha.setHours(26, 59, 59, 999); // 23:59 Argentina = 02:59 UTC día siguiente
+      filtro.createdAt.$lte = hastaFecha;
+    }
     }
 
     return this.publicacionModel.aggregate([
