@@ -1,4 +1,4 @@
-import { Component, inject, signal, resource } from '@angular/core';
+import { Component, inject, signal, resource, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Auth } from '../../auth/auth';
@@ -17,6 +17,7 @@ import { TooltipDirective } from '../../directives/tooltip';
 export class Dashboard {
   authService = inject(Auth);
   usuariosService = inject(UsuariosService);
+  cdr = inject(ChangeDetectorRef);
 
   error = signal('');
   mostrarFormulario = signal(false);
@@ -41,6 +42,7 @@ export class Dashboard {
     try {
       await this.usuariosService.deshabilitar(id);
       this.usuariosResource.reload();
+      this.cdr.detectChanges();
     } catch (e: any) {
       this.error.set('Error al deshabilitar usuario.');
     }
@@ -50,6 +52,7 @@ export class Dashboard {
     try {
       await this.usuariosService.habilitar(id);
       this.usuariosResource.reload();
+      this.cdr.detectChanges();
     } catch (e: any) {
       this.error.set('Error al habilitar usuario.');
     }
@@ -60,6 +63,7 @@ export class Dashboard {
       await this.usuariosService.crear(this.nuevoUsuario);
       this.usuariosResource.reload();
       this.mostrarFormulario.set(false);
+      this.cdr.detectChanges();
       this.nuevoUsuario = {
         nombre: '',
         apellido: '',
