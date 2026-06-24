@@ -34,10 +34,10 @@ export class App implements OnInit {
     let segundos = 0;
     this.intervalo = setInterval(() => {
       segundos++;
-      if (segundos === 60) {
+      if (segundos === 1500) {
         this.mostrarModalSesion.set(true);
       }
-      if (segundos >= 120) {
+      if (segundos >= 3000) {
         clearInterval(this.intervalo);
         this.mostrarModalSesion.set(false);
         this.authService.cerrarSesion();
