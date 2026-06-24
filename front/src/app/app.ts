@@ -31,13 +31,13 @@ export class App implements OnInit {
 
   iniciarContador() {
     if (this.intervalo) clearInterval(this.intervalo);
-    let minutos = 0;
+    let segundos = 0;
     this.intervalo = setInterval(() => {
-      minutos++;
-      if (minutos === 60) {
+      segundos++;
+      if (segundos === 60) {
         this.mostrarModalSesion.set(true);
       }
-      if (minutos >= 120) {
+      if (segundos >= 120) {
         clearInterval(this.intervalo);
         this.mostrarModalSesion.set(false);
         this.authService.cerrarSesion();
