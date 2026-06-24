@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { resource } from '@angular/core';
 import { Auth } from '../../auth/auth';
@@ -18,6 +18,7 @@ export class MiPerfil {
   authService = inject(Auth);
   publicacionesService = inject(PublicacionesService);
   usuariosService = inject(UsuariosService);
+  cdr = inject(ChangeDetectorRef);
 
   usuario = this.authService.usuarioActual;
 
@@ -36,10 +37,12 @@ export class MiPerfil {
       const usuario = await this.usuariosService.actualizarFoto(foto);
       this.authService.usuarioActual.set(usuario);
       localStorage.setItem('usuario', JSON.stringify(usuario));
+      this.cdr.detectChanges();
     } catch (e: any) {
       console.error('Error al cambiar foto', e);
       console.error('Status:', e.status);
       console.error('Message:', e.message);
+      this.cdr.detectChanges();
     }
   }
 }
